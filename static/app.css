@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(38, 38, 81);
+    color: rgb(207, 220, 220);
+}
+
+.details {
+    display: inline-block;
+    height: 200px;
+}
+
+a {
+    color: rgb(95, 234, 234);
+    text-decoration: none;
+}
+
+label {
+    display: inline-block;
+    width: 6rem;
+}
+
+input {
+    margin: .5rem;
+    /* display: inline-block;
+    width: 10rem; */
+}
