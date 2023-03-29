@@ -77,6 +77,20 @@ def post_details(post_id):
     user = User.query.get_or_404({post.user_id})
     return render_template('post.html', post=post, user=user)
 
+@app.route('/new_post/<int:user_id>')
+def new_post(user_id):
+    user = User.query.get_or_404({user_id})
+    return render_template('new_post.html', user=user)
+
+@app.route('/new_post/<int:user_id>', methods=['POST'])
+def post_new_post(user_id):
+    user = User.query.get_or_404({user_id})
+    title = request.form['titleText']
+    content = request.form['contentText']
+    new_post = Post(title=title, content=content, user_id=user.id)
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(f'/posts/{new_post.id}')
 
 
 @app.route('/posts/<int:post_id>/edit')
@@ -89,8 +103,8 @@ def edit_post(post_id):
 def post_edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-    post.title = request.form['title_text']
-    post.content = request.form['content_text']
+    post.title = request.form['titleText']
+    post.content = request.form['contentText']
     db.session.add(post)
     db.session.commit()
     return render_template('post.html', post=post, user=user)

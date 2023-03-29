@@ -25,7 +25,9 @@
         </li>
         {% endfor %}
     </ul>
-    <form></form>
+    <form>
+        <button formaction="/new_post/{{user.id}}">Add Post</button>
+    </form>
 </div>
 
 {% endblock %}
