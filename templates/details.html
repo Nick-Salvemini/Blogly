@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.first_name}} Details{% endblock %}
+
+{% block content %}
+
+<div class="details" id="userImg">
+    <img src="{{user.image_url}}" alt="Image of {{user.first_name}}">
+</div>
+<div class="details" id>
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+
+
+    <form>
+        <button formaction="/{{user.id}}/edit" id="editButton">Edit {{user.first_name}}</button>
+
+        <button formaction="/{{user.id}}/delete" formmethod='post' id="deleteButton">Delete {{user.first_name}}</button>
+
+        <button formaction="/" id="homeButton">To Homepage</button>
+    </form>
+
+    <h2>Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="/posts/{{post.id}}">{{post.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
