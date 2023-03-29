@@ -15,14 +15,14 @@ class User(db.Model):
                     autoincrement = True)
 
     first_name = db.Column(db.String(50),
-                    nullable = False)
+                            nullable = False)
 
     last_name = db.Column(db.String(50),
-                    nullable = False)
+                            nullable = False)
 
     image_url = db.Column(db.String,
-                    nullable = False,
-                    unique = True)
+                            nullable = False,
+                            unique = True)
     
     def __repr__(self):
         u = self
@@ -41,8 +41,8 @@ class Post(db.Model):
     content = db.Column(db.String(2000))
 
     created_at = db.Column(db.DateTime,
-                        nullable = False,
-                        default = func.now())
+                            nullable = False,
+                            default = func.now())
 
     user_id = db.Column(db.Integer, 
                         db.ForeignKey('users.id'),

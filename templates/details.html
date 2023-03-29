@@ -13,9 +13,7 @@
 
     <form>
         <button formaction="/{{user.id}}/edit" id="editButton">Edit {{user.first_name}}</button>
-
         <button formaction="/{{user.id}}/delete" formmethod='post' id="deleteButton">Delete {{user.first_name}}</button>
-
         <button formaction="/" id="homeButton">To Homepage</button>
     </form>
 
@@ -27,6 +25,7 @@
         </li>
         {% endfor %}
     </ul>
+    <form></form>
 </div>
 
 {% endblock %}

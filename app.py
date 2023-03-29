@@ -36,11 +36,9 @@ def create_user():
     first_name = request.form['firstName']
     last_name = request.form['lastName']
     image_url = request.form['imageUrl']
-
     new_user = User(first_name = first_name, last_name = last_name, image_url = image_url)
     db.session.add(new_user)
     db.session.commit()
-
     return redirect(f'/{new_user.id}')
 
 @app.route('/<int:user_id>')
@@ -52,7 +50,7 @@ def show_user(user_id):
 @app.route('/<int:user_id>/edit')
 def edit_user(user_id):
     user = User.query.get_or_404({user_id})
-    return render_template('edit.html', user = user)
+    return render_template('edit_user.html', user = user)
 
 @app.route('/<int:user_id>/edit', methods=['POST'])
 def post_edit_user(user_id):
@@ -60,19 +58,15 @@ def post_edit_user(user_id):
     user.first_name = request.form['editFirstNameInput']
     user.last_name = request.form['editLastNameInput']
     user.image_url = request.form['urlInput']
-
     db.session.add(user)
     db.session.commit()
-
     return render_template('details.html', user = user)
 
 @app.route('/<int:user_id>/delete', methods=['POST'])
 def delete_user(user_id):
     user = User.query.get_or_404({user_id})
-    
     db.session.delete(user)
     db.session.commit()
-
     return redirect('/')
 
 # Routes for Posts ---------------------------------
@@ -81,34 +75,30 @@ def delete_user(user_id):
 def post_details(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-
     return render_template('post.html', post=post, user=user)
+
+
 
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):
     post = Post.query.get_or_404({post_id})
-
-    return render_template('edit_post.html', post=post)
+    user = User.query.get_or_404({post.user_id})
+    return render_template('edit_post.html', post=post, user=user)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def post_edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-
     post.title = request.form['title_text']
     post.content = request.form['content_text']
-
     db.session.add(post)
     db.session.commit()
-
     return render_template('post.html', post=post, user=user)
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-
     db.session.delete(post)
     db.session.commit()
-
     return redirect(f'/{user.id}')
