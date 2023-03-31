@@ -78,15 +78,11 @@ def post_details(post_id):
     tags = Post.query.get({post_id}).tags_available
     return render_template('post.html', post=post, user=user, tags=tags)
 
-# ^^^add tags to details page------
-
 @app.route('/new_post/<int:user_id>')
 def new_post(user_id):
     user = User.query.get_or_404({user_id})
     tags = Tag.query.all()
     return render_template('new_post.html', user=user, tags=tags)
-
-
 
 @app.route('/new_post/<int:user_id>', methods=['POST'])
 def post_new_post(user_id):
@@ -94,8 +90,18 @@ def post_new_post(user_id):
     title = request.form['titleText']
     content = request.form['contentText']
     new_post = Post(title=title, content=content, user_id=user.id)
+
+    tags = Tag.query.all()
+    selected_tags =[]
+    for tag in tags:
+        if request.form.get(f'tag_{tag.id}'):
+            selected_tags.append(tag)
+    new_post.tags = selected_tags
+
     db.session.add(new_post)
     db.session.commit()
+
+    
     return redirect(f'/posts/{new_post.id}')
 
 @app.route('/posts/<int:post_id>/edit')

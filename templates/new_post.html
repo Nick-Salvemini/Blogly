@@ -16,7 +16,7 @@
     <div>
         <h3>Tags</h3>
         {% for tag in tags %}
-        <label><input type="checkbox" name="{{tag.name}}" value="{{tag.name}}">{{tag.name}}</label>
+        <label><input type="checkbox" name="tag_{{tag.id}}" value="{{tag.name}}">{{tag.name}}</label>
         {% endfor %}
     </div>
 
