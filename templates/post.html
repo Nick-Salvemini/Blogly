@@ -8,6 +8,11 @@
 <p>{{post.content}}</p>
 <p>By {{user.first_name}} {{user.last_name}}</p>
 
+<div>
+    <label>Tags: {% for tag in tags %}{{tag.name}}{% endfor %}</label>
+
+</div>
+
 <form>
     <button formaction="/posts/{{post.id}}/edit">Edit</button>
     <button formaction="/posts/{{post.id}}/delete" formmethod="post">Delete</button>

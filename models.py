@@ -26,7 +26,7 @@ class User(db.Model):
     
     def __repr__(self):
         u = self
-        return f'<User id = {u.id}, first_name = {u.first_name},last_name = {u.last_name},image_url = {u.image_url}>'
+        return f'<User - id = {u.id}, first_name = {u.first_name},last_name = {u.last_name},image_url = {u.image_url}>'
 
 class Post(db.Model):
     __tablename__='posts'
@@ -49,18 +49,18 @@ class Post(db.Model):
                         nullable = False)
     
     user = db.relationship('User', 
-                           backref='users')
+                           backref='posts')
     
     tags_for_post = db.relationship('PostTag',
-                                    backref='post_tags')
+                                    backref='posts')
     
     tags_available = db.relationship('Tag',
                                      secondary='post_tags',
-                                     backref='tags')
+                                     backref='posts')
     
     def __repr__(self):
         p = self
-        return f'<Title:"{p.title}" (post id: {p.id}) posted by "{p.user_id}" at {p.created_at}: {p.content}>'
+        return f'<Post - Title:"{p.title}" (post id: {p.id}) posted by "{p.user_id}" at {p.created_at}: {p.content}>'
     
 class Tag(db.Model):
     __tablename__='tags'
@@ -74,7 +74,11 @@ class Tag(db.Model):
                      unique=True)
     
     posts_for_tag = db.relationship('PostTag',
-                                    backref='post_tags')
+                                    backref='tags')
+    
+    def __repr__(self):
+        t = self
+        return f'<Tag - name = {t.name}, id = {t.id}>'
     
 class PostTag(db.Model):
     __tablename__='post_tags'
@@ -86,3 +90,7 @@ class PostTag(db.Model):
     tag_id = db.Column(db.Integer,
                         db.ForeignKey('tags.id'),
                         primary_key=True)
+    
+    def __repr__(self):
+        pt = self
+        return f'<Post ID: {pt.post_id}; Tag ID: {pt.tag_id}>'

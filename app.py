@@ -2,7 +2,7 @@
 
 from flask import Flask, request, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from sqlalchemy import text
 
 app = Flask(__name__)
@@ -75,12 +75,18 @@ def delete_user(user_id):
 def post_details(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-    return render_template('post.html', post=post, user=user)
+    tags = Post.query.get({post_id}).tags_available
+    return render_template('post.html', post=post, user=user, tags=tags)
+
+# ^^^add tags to details page------
 
 @app.route('/new_post/<int:user_id>')
 def new_post(user_id):
     user = User.query.get_or_404({user_id})
-    return render_template('new_post.html', user=user)
+    tags = Tag.query.all()
+    return render_template('new_post.html', user=user, tags=tags)
+
+
 
 @app.route('/new_post/<int:user_id>', methods=['POST'])
 def post_new_post(user_id):
@@ -92,12 +98,13 @@ def post_new_post(user_id):
     db.session.commit()
     return redirect(f'/posts/{new_post.id}')
 
-
 @app.route('/posts/<int:post_id>/edit')
 def edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
     return render_template('edit_post.html', post=post, user=user)
+
+# ^^^ add tags to edit page ----------------------
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def post_edit_post(post_id):
@@ -116,3 +123,13 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(f'/{user.id}')
+
+# Routes for Tags -----------------------------------------------------
+
+# Create Tag
+
+# Edit Tag
+
+# List All Tags
+
+# Show Posts with Tag
