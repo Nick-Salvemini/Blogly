@@ -51,6 +51,38 @@ class Post(db.Model):
     user = db.relationship('User', 
                            backref='users')
     
+    tags_for_post = db.relationship('PostTag',
+                                    backref='post_tags')
+    
+    tags_available = db.relationship('Tag',
+                                     secondary='post_tags',
+                                     backref='tags')
+    
     def __repr__(self):
         p = self
         return f'<Title:"{p.title}" (post id: {p.id}) posted by "{p.user_id}" at {p.created_at}: {p.content}>'
+    
+class Tag(db.Model):
+    __tablename__='tags'
+
+    id = db.Column(db.Integer,
+                    primary_key = True,
+                    autoincrement = True)
+    
+    name = db.Column(db.String(50),
+                     nullable=False,
+                     unique=True)
+    
+    posts_for_tag = db.relationship('PostTag',
+                                    backref='post_tags')
+    
+class PostTag(db.Model):
+    __tablename__='post_tags'
+
+    post_id = db.Column(db.Integer,
+                        db.ForeignKey('posts.id'),
+                        primary_key=True,)
+
+    tag_id = db.Column(db.Integer,
+                        db.ForeignKey('tags.id'),
+                        primary_key=True)
