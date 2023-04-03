@@ -89,14 +89,12 @@ def post_new_post(user_id):
     user = User.query.get_or_404({user_id})
     title = request.form['titleText']
     content = request.form['contentText']
-    new_post = Post(title=title, content=content, user_id=user.id)
-
     tags = Tag.query.all()
     selected_tags =[]
     for tag in tags:
-        if request.form.get(f'tag_{tag.id}'):
+        if request.form.get(f'tag{tag.id}'):
             selected_tags.append(tag)
-    new_post.tags = selected_tags
+    new_post = Post(title=title, content=content, user_id=user.id, tags_available=selected_tags)
 
     db.session.add(new_post)
     db.session.commit()
@@ -108,7 +106,9 @@ def post_new_post(user_id):
 def edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-    return render_template('edit_post.html', post=post, user=user)
+    tags = Tag.query.all()
+    post_tags = PostTag.query.all()
+    return render_template('edit_post.html', post=post, user=user, tags=tags, post_tags=post_tags)
 
 # ^^^ add tags to edit page ----------------------
 
@@ -116,8 +116,12 @@ def edit_post(post_id):
 def post_edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
+    
     post.title = request.form['titleText']
     post.content = request.form['contentText']
+
+
+
     db.session.add(post)
     db.session.commit()
     return render_template('post.html', post=post, user=user)

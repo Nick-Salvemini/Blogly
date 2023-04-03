@@ -7,14 +7,33 @@
 <h1>Edit Post</h1>
 
 <form>
-    <label for="title_text">Title:</label>
-    <input name="title_text" type="text" value="{{post.title}}">
+    <label for="titleText">Title:</label>
+    <input name="titleText" type="text" value="{{post.title}}">
 
-    <label for="content_text">Content:</label>
-    <input name="content_text" type="text" value="{{post.content}}">
+    <label for="contentText">Content:</label>
+    {% if post.content == None %}
+    <input name="contentText" type="text" value="">
+    {% else %}
+    <input name="contentText" type="text" value="{{post.content}}">
+    {% endif %}
+
+    <div>
+        <h3>Tags</h3>
+        <!-- {% for tag in tags %}
+
+        {% for post_tag in post_tags %}
+        {% if post_id == post.id and tag_id == tag.id %}
+        <label><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}" checked>{{tag.name}}</label>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+        <label><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</label> -->
+
+        {% endfor %}
+    </div>
 
     <button formaction="/{{user.id}}">Cancel</button>
-    <button formaction="/post/{{post.id}}/edit" formmethod="post">Edit</button>
+    <button formaction="/posts/{{post.id}}/edit" formmethod="post">Edit</button>
 </form>
 
 {% endblock %}
