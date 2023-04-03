@@ -116,15 +116,22 @@ def edit_post(post_id):
 def post_edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
+
+    tags = Tag.query.all()
+    selected_tags =[]
+    for tag in tags:
+        if request.form.get(f'tag{tag.id}'):
+            selected_tags.append(tag)
     
     post.title = request.form['titleText']
     post.content = request.form['contentText']
+    post.tags_available = selected_tags
 
 
 
     db.session.add(post)
     db.session.commit()
-    return render_template('post.html', post=post, user=user)
+    return render_template('post.html', post=post, user=user, tags=tags)
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
