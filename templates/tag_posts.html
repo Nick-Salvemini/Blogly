@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %} {% endblock %}
+{% block title %}Posts in {{tag_name}}{% endblock %}
 
 {% block content %}
+<h1>Posts in {{tag_name}}</h1>
 
+<ul>
+    {% for post in posts %}
+    <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+    {% endfor %}
+</ul>
 
+<form>
+    <button formaction="/">Home</button>
+</form>
 
 {% endblock %}

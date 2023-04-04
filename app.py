@@ -116,22 +116,17 @@ def edit_post(post_id):
 def post_edit_post(post_id):
     post = Post.query.get_or_404({post_id})
     user = User.query.get_or_404({post.user_id})
-
     tags = Tag.query.all()
     selected_tags =[]
     for tag in tags:
         if request.form.get(f'tag{tag.id}'):
             selected_tags.append(tag)
-    
     post.title = request.form['titleText']
     post.content = request.form['contentText']
     post.tags_available = selected_tags
-
-
-
     db.session.add(post)
     db.session.commit()
-    return render_template('post.html', post=post, user=user, tags=tags)
+    return render_template('post.html', post=post, user=user, tags=selected_tags)
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
@@ -142,11 +137,17 @@ def delete_post(post_id):
     return redirect(f'/{user.id}')
 
 # Routes for Tags -----------------------------------------------------
-
-# Create Tag
-
-# Edit Tag
-
 # List All Tags
+@app.route('/all_tags')
+def list_all_tags():
+    tags = Tag.query.all()
+    return render_template('all_tags.html', tags=tags)
 
 # Show Posts with Tag
+@app.route('/posts/<tag_name>')
+def posts_by_tag(tag_name):
+    post_tag = Tag.query.filter(Tag.name == {tag_name}).one()
+    tag_id = post_tag.id
+    posts = Post.query.filter(Tag.id == {tag_id}).all()
+    return render_template('tag_posts', posts=posts)
+
