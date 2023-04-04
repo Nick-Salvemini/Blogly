@@ -73,8 +73,9 @@ class Tag(db.Model):
                      nullable=False,
                      unique=True)
     
-    posts_for_tag = db.relationship('PostTag',
-                                    backref='tags')
+    posts_for_tag = db.relationship('Post', 
+                                    secondary="post_tags", 
+                                    backref="tags")
     
     def __repr__(self):
         t = self

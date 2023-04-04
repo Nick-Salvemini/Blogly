@@ -146,10 +146,8 @@ def list_all_tags():
 # Show Posts with Tag
 @app.route('/posts/<tag_name>')
 def posts_by_tag(tag_name):
-    post_tag = Tag.query.filter(Tag.name == {tag_name}).one()
-    tag_id = post_tag.id
-    posts = Post.query.filter(Tag.id == {tag_id}).all()
-    return render_template('tag_posts', posts=posts)
+    tag = Tag.query.filter(Tag.name == tag_name).one()
+    return render_template('tag_posts.html', posts=tag.posts_for_tag, tag=tag)
 
 # Create Tag
 @app.route('/new_tag')
@@ -164,15 +162,23 @@ def post_new_tag():
     db.session.commit()
     return redirect('/')
 
-# Edit Tag
+# Edit or Delete Tag
 @app.route('/edit_tag/<tag_name>')
 def edit_tag(tag_name):
-    return render_template('edit_tag.html')
+    tag = Tag.query.filter(Tag.name == tag_name).one()
+    return render_template('edit_tag.html', tag=tag)
 
 @app.route('/edit_tag/<tag_name>', methods=['POST'])
 def post_edit_tag(tag_name):
-    tag = Tag.query.filter(Tag.name == {tag_name}).one()
+    tag = Tag.query.filter(Tag.name == tag_name).one()
     tag.name = request.form['tagName']
     db.session.add(tag)
     db.session.commit()
-    return redirect('/')
+    return redirect('/all_tags')
+
+@app.route('/delete_tag/<tag_name>', methods=['POST'])
+def delete_tag(tag_name):
+    tag = Tag.query.filter(Tag.name == tag_name).one()
+    db.session.delete(tag)
+    db.session.commit()
+    return redirect('/all_tags')

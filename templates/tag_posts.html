@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Posts in {{tag_name}}{% endblock %}
+{% block title %}Posts in {{tag.name}}{% endblock %}
 
 {% block content %}
-<h1>Posts in {{tag_name}}</h1>
+<h1>Posts in {{tag.name}}</h1>
 
 <ul>
     {% for post in posts %}
@@ -13,7 +13,7 @@
 
 <form>
     <button formaction="/">Home</button>
-    <button formaction="/edit_tag/{{tag_name}}">Edit</button>
+    <button formaction="/edit_tag/{{tag.name}}">Edit</button>
 </form>
 
 {% endblock %}
