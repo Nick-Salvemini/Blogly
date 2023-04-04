@@ -7,20 +7,20 @@
 <h1>Edit Post</h1>
 
 <form>
-    <label for="titleText">Title:</label>
-    <input name="titleText" type="text" value="{{post.title}}">
+    <label class="inputLabel" for="titleText">Title:</label>
+    <input class="titleTextBox" name="titleText" type="text" value="{{post.title}}">
 
-    <label for="contentText">Content:</label>
+    <label class="inputLabel" for="contentText">Content:</label>
     {% if post.content == None %}
     <input name="contentText" type="text" value="">
     {% else %}
-    <input name="contentText" type="text" value="{{post.content}}">
+    <textarea class="contentTextBox" name="contentText" type="text">{{post.content}}</textarea>
     {% endif %}
 
-    <div>
+    <div class="tagDiv">
         <h3>Tags</h3>
         {% for tag in tags %}
-        {% if tag in post.tags_for_post %}
+        {% if tag in post.tags_available %}
         <label><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}" checked>{{tag.name}}</label>
         {% else %}
         <label><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</label>
@@ -28,8 +28,8 @@
         {% endfor %}
     </div>
 
-    <button formaction="/{{user.id}}">Cancel</button>
-    <button formaction="/posts/{{post.id}}/edit" formmethod="post">Edit</button>
+    <button class="tealButton" formaction="/{{user.id}}">Cancel</button>
+    <button class="purpleButton" formaction="/posts/{{post.id}}/edit" formmethod="post">Edit</button>
 </form>
 
 {% endblock %}

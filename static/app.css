@@ -14,17 +14,67 @@ a {
     text-decoration: none;
 }
 
-label {
-    display: inline-block;
-    width: 6rem;
+.postLink {
+    color: rgb(95, 234, 234);
+    text-decoration: none;
+}
+
+.tagLink {
+    color: rgb(207, 220, 220);
+    text-decoration: none;
+    background-color: rgb(102, 52, 127);
+    border-radius: 3px;
+    padding: 0 3px;
+}
+
+.urlTextBox {
+    width: 50vw;
+
+}
+
+.contentTextBox {
+    width: 50vw;
+    height: 25vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titleTextBox {
+    width: 50vw;
+}
+
+.inputLabel {
+    display: block;
 }
 
 input {
     margin: .5rem;
-    /* display: inline-block;
-    width: 10rem; */
 }
 
 img {
     max-width: 300px;
+}
+
+.tealButton {
+    background-color: rgb(55, 149, 189);
+    border-color: rgb(55, 149, 189);
+    border-radius: 3px;
+    color: rgb(207, 220, 220);
+}
+
+.orangeButton {
+    background-color: rgb(210, 118, 133);
+    border-color: rgb(210, 118, 133);
+    border-radius: 3px;
+    color: rgb(207, 220, 220);
+}
+
+.purpleButton {
+    background-color: rgb(102, 52, 127);
+    border-color: rgb(102, 52, 127);
+    border-radius: 3px;
+    color: rgb(207, 220, 220);
+}
+
+.tagDiv {
+    margin-bottom: 1rem;
 }

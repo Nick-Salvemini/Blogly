@@ -12,9 +12,10 @@
 
 
     <form>
-        <button formaction="/{{user.id}}/edit" id="editButton">Edit {{user.first_name}}</button>
-        <button formaction="/{{user.id}}/delete" formmethod='post' id="deleteButton">Delete {{user.first_name}}</button>
-        <button formaction="/" id="homeButton">To Homepage</button>
+        <button class="orangeButton" formaction="/{{user.id}}/edit" id="editButton">Edit {{user.first_name}}</button>
+        <button class="purpleButton" formaction="/{{user.id}}/delete" formmethod='post' id="deleteButton">Delete
+            {{user.first_name}}</button>
+        <button class="tealButton" formaction="/" id="homeButton">To Homepage</button>
     </form>
 
     <h2>Posts</h2>
@@ -26,7 +27,7 @@
         {% endfor %}
     </ul>
     <form>
-        <button formaction="/new_post/{{user.id}}">Add Post</button>
+        <button class="tealButton" formaction="/new_post/{{user.id}}">Add Post</button>
     </form>
 </div>
 

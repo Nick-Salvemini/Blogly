@@ -23,7 +23,9 @@ db.create_all()
 @app.route('/')
 def home_page():
     users = User.query.all()
-    return render_template('home.html', users=users)
+    posts =  Post.query.order_by('created_at')
+    tags = Tag.query.all()
+    return render_template('home.html', users=users, posts=posts, tags=tags)
 
 # Routes for Users -------------------------------------
 

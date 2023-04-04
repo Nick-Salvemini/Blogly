@@ -7,16 +7,16 @@
 <h1>Edit a User</h1>
 
 <form method='post'>
-    <label for="firstNameInput">First Name</label>
+    <label for="firstNameInput">First Name:</label>
     <input type="text" name="editFirstNameInput" id="firstNameInput" value="{{user.first_name}}">
-
-    <label for="lastNameInput">Last Name</label>
+    <br>
+    <label for="lastNameInput">Last Name:</label>
     <input type="text" name="editLastNameInput" id="lastNameInput" value="{{user.last_name}}">
-
-    <label for="urlInput">Image URL</label>
-    <input type="url" name="urlInput" id="editUrlInput" value="{{user.image_url}}">
-
-    <button formaction="/{{user.id}}/edit" id="editButton">Edit User</button>
+    <br>
+    <label for="urlInput">Image URL:</label>
+    <input class="urlTextBox" type="url" name="urlInput" id="editUrlInput" value="{{user.image_url}}">
+    <br>
+    <button class="tealButton" formaction="/{{user.id}}/edit" id="editButton">Edit User</button>
 </form>
 
 {% endblock %}

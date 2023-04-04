@@ -8,9 +8,9 @@
     <label for="tagName">Tag Name:</label>
     <input name="tagName" type="text" value="{{tag.name}}">
 
-    <button formaction="/posts/{{tag.name}}">Cancel</button>
-    <button formaction="/edit_tag/{{tag.name}}" formmethod="post">Edit Tag</button>
-    <button formaction="/delete_tag/{{tag.name}}" formmethod="post">Delete Tag</button>
+    <button class="orangeButton" formaction="/posts/{{tag.name}}">Cancel</button>
+    <button class="purpleButton" formaction="/edit_tag/{{tag.name}}" formmethod="post">Edit Tag</button>
+    <button class="tealButton" formaction="/delete_tag/{{tag.name}}" formmethod="post">Delete Tag</button>
 </form>
 
 {% endblock %}

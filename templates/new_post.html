@@ -7,13 +7,13 @@
 <h1>New Post for {{user.first_name}}</h1>
 
 <form>
-    <label for="titleText">Title:</label>
-    <input name="titleText" type="text">
+    <label class="inputLabel" for="titleText">Title:</label>
+    <input class="contentTextBox" name="titleText" type="text">
+    <br>
+    <label class="inputLabel" for="contentText">Content:</label>
+    <input class="contentTextBox" name="contentText" type="text">
 
-    <label for="contentText">Content:</label>
-    <input name="contentText" type="text">
-
-    <div>
+    <div class="tagDiv">
         <h3>Tags</h3>
         {% for tag in tags %}
         <label><input type="checkbox" name="tag{{tag.id}}" value="{{tag.name}}">{{tag.name}}</label>
@@ -21,8 +21,8 @@
     </div>
 
 
-    <button formaction="/{{user.id}}">Cancel</button>
-    <button formaction="/new_post/{{user.id}}" formmethod="post">Post</button>
+    <button class="tealButton" formaction="/{{user.id}}">Cancel</button>
+    <button class="purpleButton" formaction="/new_post/{{user.id}}" formmethod="post">Post</button>
 </form>
 
 

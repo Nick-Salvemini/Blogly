@@ -13,10 +13,27 @@
 </ul>
 
 <form action="/create_user">
-    <button id="goToCreate">Add a User</button>
-    <button formaction="/all_tags">Tags</button>
+    <button class="tealButton" id="goToCreate">Add a User</button>
+    <button class="purpleButton" formaction="/all_tags">Tags</button>
 </form>
 
-
+<h2>Recent Posts</h2>
+{% for post in posts %}
+<h3><a href="/posts/{{post.id}}">{{post.title}}</a></h3>
+<div>
+    <label>Tags: </label>
+    {% for tag in tags %}
+    {% if tag in post.tags_available %}
+    <a class="tagLink" href="/posts/{{tag.name}}">{{tag.name}}</a>
+    {% endif %}
+    {% endfor %}
+</div>
+<h4><i>By {{post.user.first_name}} {{post.user.last_name}} at {{post.created_at.strftime("%a %b %d %Y, %I:%M %p") }}</i>
+</h4>
+{% if post.content != None %}
+<p>{{post.content}}</p>
+{% endif %}
+<hr>
+{% endfor %}
 
 {% endblock %}

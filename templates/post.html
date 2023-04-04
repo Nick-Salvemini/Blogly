@@ -12,15 +12,18 @@
 {% endif %}
 <p>By {{user.first_name}} {{user.last_name}}</p>
 
-<div>
-    <label>Tags: </label>{% for tag in tags %}{{tag.name}} {% endfor %}
+<div class="tagDiv">
+    <label>Tags:</label>
+    {% for tag in tags %}
+    <a class="tagLink" href="/posts/{{tag.name}}">{{tag.name}}</a>
+    {% endfor %}
 </div>
 
 <form>
-    <button formaction="/posts/{{post.id}}/edit">Edit</button>
-    <button formaction="/posts/{{post.id}}/delete" formmethod="post">Delete</button>
-    <button formaction="/{{user.id}}">Back to {{user.first_name}}</button>
-    <button formaction="/">Home</button>
+    <button class="tealButton" formaction="/posts/{{post.id}}/edit">Edit</button>
+    <button class="orangeButton" formaction="/posts/{{post.id}}/delete" formmethod="post">Delete</button>
+    <button class="purpleButton" formaction="/{{user.id}}">Back to {{user.first_name}}</button>
+    <button class="tealButton" formaction="/">Home</button>
 </form>
 
 {% endblock %}
