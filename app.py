@@ -151,3 +151,28 @@ def posts_by_tag(tag_name):
     posts = Post.query.filter(Tag.id == {tag_id}).all()
     return render_template('tag_posts', posts=posts)
 
+# Create Tag
+@app.route('/new_tag')
+def new_tag():
+    return render_template('new_tag.html')
+
+@app.route('/new_tag', methods=['POST'])
+def post_new_tag():
+    tag_name = request.form['tagName']
+    new_tag = Tag(name=tag_name)
+    db.session.add(new_tag)
+    db.session.commit()
+    return redirect('/')
+
+# Edit Tag
+@app.route('/edit_tag/<tag_name>')
+def edit_tag(tag_name):
+    return render_template('edit_tag.html')
+
+@app.route('/edit_tag/<tag_name>', methods=['POST'])
+def post_edit_tag(tag_name):
+    tag = Tag.query.filter(Tag.name == {tag_name}).one()
+    tag.name = request.form['tagName']
+    db.session.add(tag)
+    db.session.commit()
+    return redirect('/')
